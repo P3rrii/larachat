@@ -48,8 +48,17 @@
         $('#button1').on('click',function(e){
             let text = $('#textinput').val();
             addMessage(text);
+            document.getElementById('textinput').value=""
         
         });
+
+        $(document).on('keypress',function(e) {
+            if(e.which == 13) {
+                let text = $('#textinput').val();
+                addMessage(text);
+                document.getElementById('textinput').value=""
+    }
+});
     
     //Function to add the data to the database
     function addMessage(text){
