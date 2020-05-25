@@ -30,4 +30,12 @@ class MessagesController extends Controller
         $message->save();
 
     }
+
+    public function LoadMessagesAjax(){
+
+        $messages = Message::all();
+
+        return response()->json(array('data'=>$messages));
+
+    }
 }

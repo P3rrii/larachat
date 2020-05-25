@@ -38,11 +38,6 @@
 <script>
     //Now we must create an AJAX request to post data into the database.
 
-    function GoToBottom(id){
-        var element = document.getElementById(id);
-        element.scrollTop = element.scrollHeight - element.clientHeight;
-    }
-
     $(document).ready(function(){
         $('#button1').on('click',function(e){
             let text = $('#textinput').val();
@@ -51,8 +46,7 @@
         });
 
         $('#button2').on('click',function(e){
-            location.reload();
-            GoToBottom('chatbox');
+            load();
         })
 
     function addMessage(text){
@@ -63,12 +57,22 @@
                 text:text
             },
         })
-        location.reload();
+    }
+
+    load = function(){
+        $.ajax({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url:'getajax',
+            type:'POST',
+            success: function(response){
+                data = response.data;
+                for(i=0;i<response.data.length;i++){
+                    $('allMessages').alert(response.data[i].text);
+                }
+            }
+        })
     }
 });
-
-setTimeout(GoToBottom('chatbox'),1000);
-
-
-
 </script>

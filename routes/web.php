@@ -21,3 +21,5 @@ Route::get('/chat','MessagesController@DisplayMessages');
 
 Route::post('/store','MessagesController@StoreMessage')->name('StoreMessage');
 
+Route::post('/getajax','MessagesController@LoadMessagesAjax');
+
