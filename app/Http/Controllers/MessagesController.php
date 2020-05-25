@@ -18,8 +18,6 @@ class MessagesController extends Controller
         $messages = Message::all();
         return view('chat')->with('messages',$messages);
 
-        return response()->json($messages);
-
     }
 
     public function StoreMessage(Request $request){
@@ -33,7 +31,8 @@ class MessagesController extends Controller
 
     public function LoadMessagesAjax(){
 
-        $messages = Message::all();
+        //We are also passing with the user so we can get the name of the user not only the ID.
+        $messages = Message::with('user')->get();
 
         return response()->json(array('data'=>$messages));
 

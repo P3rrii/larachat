@@ -12,12 +12,12 @@
                 <div class="panel-heading" id="header"> Chat </div>
                 <div class="panel-body" id="chatbox" >
                     <div id="allMessages">
-                        @foreach($messages as $message)
+                        {{-- @foreach($messages as $message)
                             
                             <p> <p id="name">{{$message->user->name}}  : </p> &nbsp {{$message->text}} </p>
                             <p> {{$message->created_at->format('d M h i s')}} {{-- We format the date with Day/Month Hour/Minutes/Seconds --}}
-                            <hr>
-                        @endforeach
+                           {{-- <hr>
+                        @endforeach --}}
                         
                     </div>
                 </div>
@@ -67,9 +67,13 @@
             url:'getajax',
             type:'POST',
             success: function(response){
+                $('#allMessages').empty();
                 data = response.data;
                 for(i=0;i<response.data.length;i++){
-                    $('allMessages').alert(response.data[i].text);
+                    $('#allMessages').append(
+                        "<p> <p id=name>" + response.data[i].user.name + "</p>" + " " + response.data[i].text + "</p>" +
+                        "<p>" + response.data[i].created_at + "</p>" + "<hr>"
+                    );
                 }
             }
         })
