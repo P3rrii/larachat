@@ -22,12 +22,9 @@
                     </div>
                 </div>
                 <div class="input-group mb-3" id="sendform">
-                    <form>
                     <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon2" display="inline" id="textinput">
                     <div class="input-group-append">
                       <button class="btn btn-outline-secondary" type="button" id="button1"> Send </button>
-                      <button class="btn btn-outline-secondary" type="button" id="button2"> Refresh </button>
-                    </form>
                     </div>
                 </div>
             </div>
@@ -36,19 +33,25 @@
 @endsection
 
 <script>
-    //Now we must create an AJAX request to post data into the database.
 
+    //Now we must create an AJAX request to post data into the database.
+    var ScrollToBottom = true;
+
+    //When the document is ready we start
     $(document).ready(function(){
+        function GoToBottom(id){
+   	        var element = document.getElementById(id);
+   	        element.scrollTop = element.scrollHeight;
+	    }
+
+        //If Button with ID button1 is clicked then we execute this code.
         $('#button1').on('click',function(e){
             let text = $('#textinput').val();
             addMessage(text);
         
         });
-
-        $('#button2').on('click',function(e){
-            load();
-        })
-
+    
+    //Function to add the data to the database
     function addMessage(text){
         $.ajax({
             method:'POST',
@@ -57,10 +60,13 @@
                 text:text
             },
         })
+        ScrollToBottom=true;
     }
 
-    load = function(){
+    //Function to load data from the database
+    function load(){
         $.ajax({
+            //We must add the CSRF-Token so we wont have a problem.
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
@@ -75,8 +81,15 @@
                         "<p>" + response.data[i].created_at + "</p>" + "<hr>"
                     );
                 }
+                if(ScrollToBottom===true){
+      	        GoToBottom('chatbox');
+      	        ScrollToBottom=false;
+            }
             }
         })
     }
+    setInterval(load,200);
 });
+
+   
 </script>
