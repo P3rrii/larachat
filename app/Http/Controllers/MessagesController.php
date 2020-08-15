@@ -47,4 +47,18 @@ class MessagesController extends Controller
         return response()->json(array('data'=>$messages));
 
     }
+
+    public function isActive(){
+        $user = User::where('id','=', Auth::user()->id)->get()->first();
+        $user->update([
+            'is_active'=>1,
+        ]);
+    }
+
+    public function notActive(){
+        $user = User::where('id','=', Auth::user()->id)->get()->first();
+        $user->update([
+            'is_active'=>0,
+        ]);
+    }
 }

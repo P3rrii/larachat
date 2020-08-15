@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->bigInteger('fame')->default(0);
             $table->text('description')->nullable();
+            $table->integer('is_active')->default(0); //0 Not Active -> 1 Active
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

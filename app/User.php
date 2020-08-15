@@ -12,7 +12,7 @@ class User extends Authenticatable
 
     //Mass Assignment Values.
     protected $fillable = [
-        'name', 'email', 'password','fame'
+        'name', 'email', 'password','fame','is_active'
     ];
 
     //Hidden From Arrays

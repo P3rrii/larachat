@@ -25,3 +25,6 @@ Route::post('/store','MessagesController@StoreMessage')->name('StoreMessage');
 
 Route::post('/getajax','MessagesController@LoadMessagesAjax');
 
+Route::post('/isactive', 'MessagesController@isActive');
+
+Route::post('/notactive','MessagesController@notActive');

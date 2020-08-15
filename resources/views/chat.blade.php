@@ -93,7 +93,29 @@
             }
         })
     }
+
+    function checkIsActive(){
+        $.ajax({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method:'POST',
+            url:"isactive",
+        })
+    }
     setInterval(load,500);
+
+    window.onbeforeunload = function (e) {
+        $.ajax({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method:'POST',
+            url:"notactive",
+        })
+    }
+
+    checkIsActive();
 });
 
    
