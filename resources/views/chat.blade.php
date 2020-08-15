@@ -64,7 +64,7 @@
     function addMessage(text){
         $.ajax({
             method:'POST',
-            url:"http://larachat.dev/store",
+            url:"store",
             data:{
                 text:text
             },
