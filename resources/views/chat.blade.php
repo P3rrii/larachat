@@ -7,13 +7,14 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-8 col-md-offset-0">
             <div class="panel panel-default">
                 @if(Auth::user())
                 <div class="panel-heading" id="header"> Chat </div>
                 <div class="panel-body" id="chatbox" >
                     <div id="allMessages"> </div>
                 </div>
+
                 <div class="input-group mb-3" id="sendform">
                     <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon2" display="inline" id="textinput">
                     <div class="input-group-append">
@@ -23,6 +24,15 @@
                 @else 
                     <center> <p> You must be logged in to use the chat </p> </center>
                 @endif
+            </div>
+        </div>
+
+        <div class="col-md-4 col-md-offset-0">
+            <div class="panel panel-default">
+                <div class="panel-heading" id="header"> Active Users </div>
+                <div class="panel-body" id="activeUsers" >
+                    <div id="allActiveUsers"> </div>
+                </div>
             </div>
         </div>
     </div>
@@ -86,10 +96,19 @@
                         "<p>" + response.data[i].created_at + "</p>" + "<hr>"
                     );
                 }
+
+                $('#allActiveUsers').empty();
+                for(i=0;i<response.active_users.length;i++){
+                    $('#allActiveUsers').append(
+                        "<p> <p id=name>" + response.active_users[i].name + "</p>"
+                    );
+                }
+
+                
                 if(ScrollToBottom===true){
-      	        GoToBottom('chatbox');
-      	        ScrollToBottom=false;
-            }
+      	            GoToBottom('chatbox');
+      	            ScrollToBottom=false;
+                }
             }
         })
     }
@@ -114,6 +133,16 @@
             url:"notactive",
         })
     }
+
+    $(window).on('unload', function() {
+        $.ajax({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method:'POST',
+            url:"notactive",
+        })
+    });
 
     checkIsActive();
 });

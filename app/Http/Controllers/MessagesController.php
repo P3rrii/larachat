@@ -16,10 +16,8 @@ class MessagesController extends Controller
     
     //Function that displays all the messages in the chat
     public function DisplayMessages(){
-
         $messages = Message::all();
         return view('chat')->with('messages',$messages);
-
     }
 
     public function StoreMessage(Request $request){
@@ -37,15 +35,14 @@ class MessagesController extends Controller
         $user->update([
             'fame'=>$fame,
         ]);
-
     }
 
     public function LoadMessagesAjax(){
-
         //We are also passing with the user so we can get the name of the user not only the ID.
         $messages = Message::with('user')->get();
-        return response()->json(array('data'=>$messages));
+        $active_users = User::where('is_active','=','1')->get()->all();
 
+        return response()->json(array('data'=>$messages,'active_users'=>$active_users));
     }
 
     public function isActive(){
@@ -61,4 +58,5 @@ class MessagesController extends Controller
             'is_active'=>0,
         ]);
     }
+
 }
