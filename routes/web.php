@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/chat','MessagesController@DisplayMessages');
 
+Route::get('/{user}/profile','UserProfileController@showProfile');
+
 Route::post('/store','MessagesController@StoreMessage')->name('StoreMessage');
 
 Route::post('/getajax','MessagesController@LoadMessagesAjax');
