@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Message; 
+use App\User;
 
 class MessagesController extends Controller
 {
@@ -21,11 +23,20 @@ class MessagesController extends Controller
     }
 
     public function StoreMessage(Request $request){
+        $user = User::where('id','=',Auth::user()->id)->get()->first();
+
         $message = New Message;
         $message->text = $request->input('text');
         $message->user_id = Auth()->user()->id;
 
         $message->save();
+
+        $fame = $user->fame;
+        $fame++;
+
+        $user->update([
+            'fame'=>$fame,
+        ]);
 
     }
 
@@ -33,7 +44,6 @@ class MessagesController extends Controller
 
         //We are also passing with the user so we can get the name of the user not only the ID.
         $messages = Message::with('user')->get();
-
         return response()->json(array('data'=>$messages));
 
     }

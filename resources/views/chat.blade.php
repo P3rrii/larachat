@@ -93,7 +93,7 @@
             }
         })
     }
-    setInterval(load,200);
+    setInterval(load,500);
 });
 
    
