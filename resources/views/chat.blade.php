@@ -9,17 +9,10 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
+                @if(Auth::user())
                 <div class="panel-heading" id="header"> Chat </div>
                 <div class="panel-body" id="chatbox" >
-                    <div id="allMessages">
-                        {{-- @foreach($messages as $message)
-                            
-                            <p> <p id="name">{{$message->user->name}}  : </p> &nbsp {{$message->text}} </p>
-                            <p> {{$message->created_at->format('d M h i s')}} {{-- We format the date with Day/Month Hour/Minutes/Seconds --}}
-                           {{-- <hr>
-                        @endforeach --}}
-                        
-                    </div>
+                    <div id="allMessages"> </div>
                 </div>
                 <div class="input-group mb-3" id="sendform">
                     <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon2" display="inline" id="textinput">
@@ -27,6 +20,9 @@
                       <button class="btn btn-outline-secondary" type="button" id="button1"> Send </button>
                     </div>
                 </div>
+                @else 
+                    <center> <p> You must be logged in to use the chat </p> </center>
+                @endif
             </div>
         </div>
     </div>
