@@ -27,6 +27,7 @@
             </div>
         </div>
 
+        @if(Auth::user())
         <div class="col-md-4 col-md-offset-0">
             <div class="panel panel-default">
                 <div class="panel-heading" id="header"> Active Users </div>
@@ -34,7 +35,10 @@
                     <div id="allActiveUsers"> </div>
                 </div>
             </div>
+            @else 
+            <center> <p> You must be logged in to see active users </p> </center>
         </div>
+        @endif
     </div>
 @endsection
 
@@ -100,7 +104,7 @@
                 $('#allActiveUsers').empty();
                 for(i=0;i<response.active_users.length;i++){
                     $('#allActiveUsers').append(
-                        "<p> <p id=name>" + response.active_users[i].name + "</p>"
+                        "<a href=" + response.active_users[i].id + "/profile>" + response.active_users[i].name + "</a> <br>"
                     );
                 }
 

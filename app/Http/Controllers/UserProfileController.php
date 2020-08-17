@@ -9,8 +9,8 @@ use App\User;
 
 class UserProfileController extends Controller
 {
-    public function showProfile(){
-        $user = Auth::user();
+    public function showProfile(Request $request){
+        $user = User::findOrFail($request->user);
         return view('profile', compact(['user']));
     }
 

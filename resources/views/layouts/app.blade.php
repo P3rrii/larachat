@@ -50,11 +50,18 @@
                         
                         @else
                         <li class="dropdown">
+
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                                {{ Auth::user()->name }} <span class="caret"> </span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                                <li> 
+                                    <a href="/{{Auth::user()->id}}/profile"> My Profile </a>
+                                </li>
+                                <li> 
+                                    <a href="/chat"> Chat </a>
+                                </li>
                                 <li>
                                     <a href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
@@ -65,9 +72,6 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}
                                     </form>
-                                </li>
-                                <li> 
-                                    <a href="/{{Auth::user()->id}}/profile"> Profile </a>
                                 </li>
                             </ul>
                         </li>
